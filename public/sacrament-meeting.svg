@@ -1,0 +1,14 @@
+<svg width="800" height="500" viewBox="0 0 800 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="500" rx="24" fill="#E2E8F0"></rect>
+  <rect x="100" y="150" width="600" height="230" rx="12" fill="#FFFFFF"></rect>
+  <path d="M170 150L400 70L630 150V360H170V150Z" fill="#CBD5E1"></path>
+  <path d="M360 150H440V360H360V150Z" fill="#94A3B8"></path>
+  <path d="M390 90H410V150H390V90Z" fill="#64748B"></path>
+  <path d="M370 110H430V130H370V110Z" fill="#64748B"></path>
+  <rect x="220" y="210" width="80" height="150" rx="8" fill="#F1F5F9"></rect>
+  <rect x="500" y="210" width="80" height="150" rx="8" fill="#F1F5F9"></rect>
+  <rect x="335" y="250" width="130" height="110" rx="8" fill="#F8FAFC"></rect>
+  <text x="400" y="430" text-anchor="middle" fill="#334155" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">
+    Sacrament Meeting Planner
+  </text>
+</svg>
