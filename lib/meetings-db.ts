@@ -201,6 +201,50 @@ const meetings: SacramentMeeting[] = [
     },
     closingPrayer: "Brother Andrew Thomas",
   },
+
+  {
+    id: 6,
+    date: "2026-09-13",
+    meetingType: "regular",
+    presiding: "Bishop Christian Uche",
+    conducting: "Brother John Okoro",
+    announcements: [
+      "Youth activity will be held this Saturday.",
+      "Members are invited to participate in the upcoming service project.",
+    ],
+    openingHymn: {
+      number: 2,
+      title: "The Spirit of God",
+    },
+    openingPrayer: "Brother Peter Nwosu",
+    wardBusiness: [
+      {
+        description: "Sustaining of ward officers.",
+      },
+    ],
+    stakeBusiness: false,
+    sacramentHymn: {
+      number: 169,
+      title: "As Now We Take the Sacrament",
+    },
+    speakers: [
+      {
+        name: "Sister Grace Eze",
+        topic: "Faith in Jesus Christ",
+        type: "speaker",
+      },
+      {
+        name: "Brother David Okoro",
+        topic: "Serving Others",
+        type: "speaker",
+      },
+    ],
+    closingHymn: {
+      number: 227,
+      title: "There Is Sunshine in My Soul Today",
+    },
+    closingPrayer: "Brother Michael Nwankwo",
+  },
 ];
 
 export function getMeetings(date?: string | null): SacramentMeeting[] {

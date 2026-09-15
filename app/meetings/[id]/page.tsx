@@ -1,0 +1,29 @@
+import { notFound } from "next/navigation";
+import MeetingDetail from "../../../components/MeetingDetail";
+import { getMeetingFromApi } from "../../../lib/api";
+import type { SacramentMeeting } from "../../../lib/types";
+
+interface MeetingPageProps {
+  params: Promise<{
+    id: string;
+  }>;
+}
+
+export const dynamic = "force-dynamic";
+
+export default async function MeetingPage({ params }: MeetingPageProps) {
+  const { id } = await params;
+  const meetingId = Number(id);
+
+  if (!Number.isInteger(meetingId)) {
+    notFound();
+  }
+
+  const meeting: SacramentMeeting | null = await getMeetingFromApi(meetingId);
+
+  if (!meeting) {
+    notFound();
+  }
+
+  return <MeetingDetail meeting={meeting} />;
+}
