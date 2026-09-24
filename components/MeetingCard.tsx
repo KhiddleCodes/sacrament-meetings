@@ -17,29 +17,29 @@ export default function MeetingCard({ meeting }: MeetingCardProps) {
   );
 
   return (
-    <article className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm transition hover:shadow-md">
+    <article className="rounded-xl border border-[#d7ccba] bg-[#fffdf9] p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <div>
-          <p className="text-sm font-medium uppercase tracking-wide text-slate-500">
+          <p className="text-sm font-medium uppercase tracking-[0.2em] text-[#7d6452]">
             {meeting.meetingType} meeting
           </p>
 
-          <h2 className="mt-1 text-xl font-bold text-slate-900">
+          <h2 className="mt-1 text-xl font-bold text-[#183153]">
             {formattedDate}
           </h2>
 
-          <p className="mt-2 text-sm text-slate-600">
+          <p className="mt-2 text-sm text-[#4d5c6d]">
             Presiding: {meeting.presiding}
           </p>
 
-          <p className="text-sm text-slate-600">
+          <p className="text-sm text-[#4d5c6d]">
             Conducting: {meeting.conducting}
           </p>
         </div>
 
         <Link
           href={`/meetings/${meeting.id}`}
-          className="inline-flex w-fit rounded-md bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2"
+          className="inline-flex w-fit rounded-md bg-[#183153] px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-[#12253d] focus:outline-none focus:ring-2 focus:ring-[#c7a56a] focus:ring-offset-2"
         >
           View Program
         </Link>

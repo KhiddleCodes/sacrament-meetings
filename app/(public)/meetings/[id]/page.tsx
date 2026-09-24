@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
-import MeetingDetail from "../../../components/MeetingDetail";
-import { getMeetingFromApi } from "../../../lib/api";
-import type { SacramentMeeting } from "../../../lib/types";
+import MeetingDetail from "@/components/MeetingDetail";
+import { getMeetingById } from "@/lib/meetings-db";
+import type { SacramentMeeting } from "@/lib/types";
 
 interface MeetingPageProps {
   params: Promise<{
@@ -19,7 +19,7 @@ export default async function MeetingPage({ params }: MeetingPageProps) {
     notFound();
   }
 
-  const meeting: SacramentMeeting | null = await getMeetingFromApi(meetingId);
+  const meeting: SacramentMeeting | null = await getMeetingById(meetingId);
 
   if (!meeting) {
     notFound();

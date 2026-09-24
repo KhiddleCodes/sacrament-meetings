@@ -1,14 +1,84 @@
 <svg width="800" height="500" viewBox="0 0 800 500" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect width="800" height="500" rx="24" fill="#E2E8F0"></rect>
-  <rect x="100" y="150" width="600" height="230" rx="12" fill="#FFFFFF"></rect>
-  <path d="M170 150L400 70L630 150V360H170V150Z" fill="#CBD5E1"></path>
-  <path d="M360 150H440V360H360V150Z" fill="#94A3B8"></path>
-  <path d="M390 90H410V150H390V90Z" fill="#64748B"></path>
-  <path d="M370 110H430V130H370V110Z" fill="#64748B"></path>
-  <rect x="220" y="210" width="80" height="150" rx="8" fill="#F1F5F9"></rect>
-  <rect x="500" y="210" width="80" height="150" rx="8" fill="#F1F5F9"></rect>
-  <rect x="335" y="250" width="130" height="110" rx="8" fill="#F8FAFC"></rect>
-  <text x="400" y="430" text-anchor="middle" fill="#334155" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">
-    Sacrament Meeting Planner
-  </text>
+  <defs>
+    <linearGradient id="bg" x1="60" y1="40" x2="720" y2="470" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#183153"/>
+      <stop offset="1" stop-color="#0F243C"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#F1E4C5"/>
+      <stop offset="1" stop-color="#C7A56A"/>
+    </linearGradient>
+    <linearGradient id="card" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#FFFDF9"/>
+      <stop offset="1" stop-color="#F7F0E7"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="500" rx="28" fill="url(#bg)"/>
+  <circle cx="118" cy="94" r="52" fill="#213F60" opacity="0.55"/>
+  <circle cx="680" cy="80" r="72" fill="#D7B579" opacity="0.14"/>
+  <circle cx="730" cy="390" r="110" fill="#D7B579" opacity="0.12"/>
+
+  <g opacity="0.25">
+    <path d="M90 378H710" stroke="#F1E4C5" stroke-width="2" stroke-dasharray="10 10"/>
+  </g>
+
+  <g transform="translate(70 70)">
+    <rect x="0" y="0" width="660" height="360" rx="22" fill="rgba(255,255,255,0.04)" stroke="rgba(241,228,197,0.3)"/>
+
+    <g transform="translate(30 32)">
+      <rect x="0" y="0" width="270" height="276" rx="16" fill="url(#card)"/>
+      <rect x="0" y="0" width="270" height="52" rx="16" fill="#183153"/>
+      <text x="24" y="34" fill="#F1E4C5" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" letter-spacing="2">WARD PLAN</text>
+
+      <g transform="translate(22 72)">
+        <rect x="0" y="0" width="110" height="62" rx="12" fill="#EEF4F8"/>
+        <text x="16" y="26" fill="#6A7A8A" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="700" letter-spacing="1.6">OPENING</text>
+        <text x="16" y="46" fill="#183153" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700">Hymn 136</text>
+      </g>
+
+      <g transform="translate(138 72)">
+        <rect x="0" y="0" width="110" height="62" rx="12" fill="#F5EFE6"/>
+        <text x="16" y="26" fill="#6A7A8A" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="700" letter-spacing="1.6">PRAYER</text>
+        <text x="16" y="46" fill="#183153" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700">Elder Lee</text>
+      </g>
+
+      <g transform="translate(22 148)">
+        <rect x="0" y="0" width="226" height="66" rx="12" fill="#F9F5EF"/>
+        <text x="16" y="26" fill="#6A7A8A" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="700" letter-spacing="1.6">SPEAKER</text>
+        <text x="16" y="48" fill="#183153" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700">Sister A. Martin</text>
+      </g>
+
+      <g transform="translate(22 228)">
+        <rect x="0" y="0" width="226" height="26" rx="8" fill="#D9E7F0"/>
+        <text x="16" y="18" fill="#183153" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700">ANNOUNCEMENTS • 3 ITEMS</text>
+      </g>
+    </g>
+
+    <g transform="translate(325 30)">
+      <rect x="0" y="0" width="300" height="300" rx="22" fill="url(#card)"/>
+
+      <g transform="translate(26 24)">
+        <rect x="0" y="0" width="248" height="52" rx="12" fill="#E9D7A6"/>
+        <text x="18" y="32" fill="#183153" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="800">SACRAMENT MEETING</text>
+      </g>
+
+      <g transform="translate(40 96)">
+        <rect x="0" y="0" width="220" height="110" rx="18" fill="#F5EFE6"/>
+        <text x="18" y="28" fill="#7D6452" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" letter-spacing="2">SUNDAY</text>
+        <text x="18" y="58" fill="#183153" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="800">16</text>
+        <text x="68" y="58" fill="#183153" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700">June</text>
+        <text x="18" y="88" fill="#4D5C6D" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="600">10:00 AM • Ovom Ward</text>
+      </g>
+
+      <g transform="translate(40 220)" opacity="1">
+        <rect x="0" y="0" width="220" height="46" rx="10" fill="#183153"/>
+        <text x="20" y="30" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700">Planner Ready</text>
+      </g>
+    </g>
+
+
+  </g>
+
+  <text x="400" y="455" text-anchor="middle" fill="#F8F3EA" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="700" letter-spacing="1.2">Sacrament Meeting Planner</text>
 </svg>

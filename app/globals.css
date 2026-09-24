@@ -1,11 +1,18 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f8fafc;
-  --foreground: #0f172a;
-  --primary: #1e293b;
-  --muted: #64748b;
-  --border: #e2e8f0;
+  --background: #f4efe7;
+  --background-strong: #efe4d2;
+  --foreground: #1d2d3d;
+  --foreground-soft: #4d5c6d;
+  --primary: #1d3557;
+  --primary-deep: #12253d;
+  --accent: #c7a56a;
+  --accent-soft: #f1e4c5;
+  --surface: #fffdf9;
+  --surface-alt: #eef4f8;
+  --muted: #6a7a8a;
+  --border: #d9d0c2;
 }
 
 * {
@@ -18,7 +25,9 @@ html {
 
 body {
   margin: 0;
-  background: var(--background);
+  background:
+    radial-gradient(circle at top, rgba(199, 165, 106, 0.12), transparent 28%),
+    var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
@@ -30,4 +39,8 @@ a {
 button,
 a {
   -webkit-tap-highlight-color: transparent;
+}
+
+::selection {
+  background: rgba(199, 165, 106, 0.3);
 }

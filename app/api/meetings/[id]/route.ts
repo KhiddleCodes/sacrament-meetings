@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getMeetingById } from "../../../../lib/meetings-db";
+import { getMeetingById } from "@/lib/meetings-db";
 
 interface RouteContext {
   params: Promise<{
@@ -18,7 +18,7 @@ export async function GET(_request: Request, context: RouteContext) {
     );
   }
 
-  const meeting = getMeetingById(meetingId);
+  const meeting = await getMeetingById(meetingId);
 
   if (!meeting) {
     return NextResponse.json({ error: "Meeting not found." }, { status: 404 });
