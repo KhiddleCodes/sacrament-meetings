@@ -8,16 +8,19 @@ export default async function MeetingsPage() {
   const meetings: SacramentMeeting[] = await getMeetingsFromApi();
 
   return (
-    <section>
+    <section className="mx-auto max-w-6xl px-6 py-10">
       <div className="mb-8">
-        <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+        <span className="inline-flex rounded-full border border-[#d2c4a5] bg-[#f6ecd8] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#234f55]">
           Meeting Programs
-        </p>
+        </span>
 
-        <h1 className="mt-2 text-3xl font-bold text-slate-900">All Meetings</h1>
+        <h1 className="mt-4 text-3xl font-black tracking-tight text-[#10273a] sm:text-4xl">
+          All Meetings
+        </h1>
 
-        <p className="mt-3 text-slate-600">
-          Browse current and previous sacrament meeting programs.
+        <p className="mt-3 max-w-2xl text-[#53657a]">
+          Browse current and previous sacrament meeting programs with a calm,
+          organized view for each service.
         </p>
       </div>
 

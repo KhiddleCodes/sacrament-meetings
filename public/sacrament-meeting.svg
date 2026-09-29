@@ -1,14 +1,26 @@
 <svg width="800" height="500" viewBox="0 0 800 500" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect width="800" height="500" rx="24" fill="#E2E8F0"></rect>
-  <rect x="100" y="150" width="600" height="230" rx="12" fill="#FFFFFF"></rect>
-  <path d="M170 150L400 70L630 150V360H170V150Z" fill="#CBD5E1"></path>
-  <path d="M360 150H440V360H360V150Z" fill="#94A3B8"></path>
-  <path d="M390 90H410V150H390V90Z" fill="#64748B"></path>
-  <path d="M370 110H430V130H370V110Z" fill="#64748B"></path>
-  <rect x="220" y="210" width="80" height="150" rx="8" fill="#F1F5F9"></rect>
-  <rect x="500" y="210" width="80" height="150" rx="8" fill="#F1F5F9"></rect>
-  <rect x="335" y="250" width="130" height="110" rx="8" fill="#F8FAFC"></rect>
-  <text x="400" y="430" text-anchor="middle" fill="#334155" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">
-    Sacrament Meeting Planner
-  </text>
+  <rect width="800" height="500" rx="28" fill="#EAF5FF"/>
+  <rect x="60" y="52" width="680" height="396" rx="26" fill="#FFFFFF" stroke="#CFE0EE" stroke-width="2"/>
+
+  <rect x="90" y="92" width="620" height="62" rx="18" fill="#163756"/>
+  <text x="400" y="132" text-anchor="middle" fill="#F5FAFF" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">SACRAMENT MEETING PLANNER</text>
+
+  <rect x="90" y="172" width="290" height="62" rx="14" fill="#EAF5FF"/>
+  <text x="116" y="195" fill="#163756" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700">Who Presided</text>
+  <text x="116" y="218" fill="#163756" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700">Bishop Michael Okafor</text>
+
+  <rect x="420" y="172" width="290" height="62" rx="14" fill="#EAF5FF"/>
+  <text x="446" y="195" fill="#163756" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700">Opening Prayer</text>
+  <text x="446" y="218" fill="#163756" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700">Sister Grace Akinola</text>
+
+  <rect x="90" y="250" width="290" height="62" rx="14" fill="#EEF5FB"/>
+  <text x="116" y="273" fill="#163756" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700">Opening Hymn</text>
+  <text x="116" y="296" fill="#163756" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700">#30 • Beautiful Savior</text>
+
+  <rect x="420" y="250" width="290" height="62" rx="14" fill="#EAF5FF"/>
+  <text x="446" y="273" fill="#163756" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700">Closing Hymn</text>
+  <text x="446" y="296" fill="#163756" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700">#101 • Lord, I Would Follow Thee</text>
+
+  <rect x="266" y="340" width="268" height="58" rx="16" fill="#3D7EA6"/>
+  <text x="400" y="375" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700">Ovom Ward</text>
 </svg>
