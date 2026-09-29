@@ -1,11 +1,11 @@
 import MeetingCard from "../../components/MeetingCard";
-import { getMeetingsFromApi } from "../../lib/api";
+import { getMeetings } from "../../lib/meetings-db";
 import type { SacramentMeeting } from "../../lib/types";
 
 export const dynamic = "force-dynamic";
 
 export default async function MeetingsPage() {
-  const meetings: SacramentMeeting[] = await getMeetingsFromApi();
+  const meetings: SacramentMeeting[] = await getMeetings();
 
   return (
     <section className="mx-auto max-w-6xl px-6 py-10">
