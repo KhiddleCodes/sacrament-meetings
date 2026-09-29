@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import EditMeetingForm from "../../../../components/EditMeetingForm";
-import { getMeetingFromApi } from "../../../../lib/api";
+import { getMeetingById } from "../../../../lib/meetings-db";
 import type { SacramentMeeting } from "../../../../lib/types";
 
 interface EditMeetingPageProps {
@@ -22,7 +22,7 @@ export default async function EditMeetingPage({
     notFound();
   }
 
-  const meeting: SacramentMeeting | null = await getMeetingFromApi(meetingId);
+  const meeting: SacramentMeeting | null = await getMeetingById(meetingId);
 
   if (!meeting) {
     notFound();
