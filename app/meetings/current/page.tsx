@@ -11,9 +11,9 @@ function getCurrentSunday() {
   return sunday.toISOString().split("T")[0];
 }
 
-export default function CurrentMeetingPage() {
+export default async function CurrentMeetingPage() {
   const currentSunday = getCurrentSunday();
-  const meetings = getMeetings(currentSunday);
+  const meetings = await getMeetings(currentSunday);
 
   if (meetings.length > 0) {
     redirect(`/meetings/${meetings[0].id}`);

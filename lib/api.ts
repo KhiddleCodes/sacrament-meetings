@@ -21,7 +21,14 @@ export async function getMeetingsFromApi(date?: string) {
     throw new Error("Failed to fetch meetings.");
   }
 
-  return response.json();
+  const data = await response.json();
+
+  if (!Array.isArray(data)) {
+    console.error("Expected meetings array but received:", data);
+    throw new Error("Invalid meetings response.");
+  }
+
+  return data;
 }
 
 export async function getMeetingFromApi(id: number) {
