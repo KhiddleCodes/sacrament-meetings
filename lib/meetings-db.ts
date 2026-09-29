@@ -1,130 +1,161 @@
-import { neon } from "@neondatabase/serverless";
-import type { SacramentMeeting } from "./types";
+import { sql } from "@vercel/postgres";
+import type { MeetingType, SacramentMeeting } from "./types";
 
-const sql = neon(process.env.DATABASE_URL!);
-
-const ITEMS_PER_PAGE = 5;
-
-export async function getMeetings(
-  query: string = "",
-  currentPage: number = 1,
-): Promise<SacramentMeeting[]> {
-  const searchTerm = `%${query}%`;
-  const offset = (currentPage - 1) * ITEMS_PER_PAGE;
-
-  const rows = await sql`
-    SELECT
-      id,
-      to_char(date, 'YYYY-MM-DD') AS "date",
-      meeting_type AS "meetingType",
-      presiding,
-      conducting,
-      announcements,
-      opening_hymn AS "openingHymn",
-      opening_prayer AS "openingPrayer",
-      ward_business AS "wardBusiness",
-      stake_business AS "stakeBusiness",
-      sacrament_hymn AS "sacramentHymn",
-      speakers,
-      closing_hymn AS "closingHymn",
-      closing_prayer AS "closingPrayer"
-    FROM meetings
-    WHERE
-      presiding ILIKE ${searchTerm}
-      OR conducting ILIKE ${searchTerm}
-      OR meeting_type ILIKE ${searchTerm}
-      OR speakers::text ILIKE ${searchTerm}
-    ORDER BY date DESC
-    LIMIT ${ITEMS_PER_PAGE}
-    OFFSET ${offset}
-  `;
-
-  return rows as unknown as SacramentMeeting[];
+interface MeetingRow {
+  id: number;
+  date: string | Date;
+  meeting_type: MeetingType;
+  presiding: string;
+  conducting: string;
+  announcements: string[] | null;
+  opening_hymn: SacramentMeeting["openingHymn"];
+  opening_prayer: string;
+  ward_business: SacramentMeeting["wardBusiness"] | null;
+  stake_business: boolean | null;
+  sacrament_hymn: SacramentMeeting["sacramentHymn"];
+  speakers: SacramentMeeting["speakers"] | null;
+  closing_hymn: SacramentMeeting["closingHymn"];
+  closing_prayer: string;
 }
 
-export async function getMeetingsTotalPages(
-  query: string = "",
-): Promise<number> {
-  const searchTerm = `%${query}%`;
+function toPostgresTextArray(values: string[]): string {
+  return `{${values
+    .map((value) => `"${value.replace(/\\/g, "\\\\").replace(/"/g, '\\"')}"`)
+    .join(",")}}`;
+}
 
-  const rows = await sql`
-    SELECT COUNT(*) FROM meetings
-    WHERE
-      presiding ILIKE ${searchTerm}
-      OR conducting ILIKE ${searchTerm}
-      OR meeting_type ILIKE ${searchTerm}
-      OR speakers::text ILIKE ${searchTerm}
-  `;
+function mapMeeting(row: MeetingRow): SacramentMeeting {
+  const date =
+    row.date instanceof Date ? row.date.toISOString().split("T")[0] : row.date;
 
-  return Math.ceil(Number(rows[0].count) / ITEMS_PER_PAGE);
+  return {
+    id: row.id,
+    date,
+    meetingType: row.meeting_type,
+    presiding: row.presiding,
+    conducting: row.conducting,
+    announcements: row.announcements ?? [],
+    openingHymn: row.opening_hymn,
+    openingPrayer: row.opening_prayer,
+    wardBusiness: row.ward_business ?? [],
+    stakeBusiness: row.stake_business ?? false,
+    sacramentHymn: row.sacrament_hymn,
+    speakers: row.speakers ?? [],
+    closingHymn: row.closing_hymn,
+    closingPrayer: row.closing_prayer,
+  };
+}
+
+export async function getMeetings(
+  date?: string | null,
+): Promise<SacramentMeeting[]> {
+  const result = date
+    ? await sql<MeetingRow>`
+        SELECT *
+        FROM meetings
+        WHERE date = ${date}
+        ORDER BY date DESC, id DESC
+      `
+    : await sql<MeetingRow>`
+        SELECT *
+        FROM meetings
+        ORDER BY date DESC, id DESC
+      `;
+
+  return result.rows.map(mapMeeting);
 }
 
 export async function getMeetingById(
   id: number,
 ): Promise<SacramentMeeting | null> {
-  const rows = await sql`
-    SELECT
-      id,
-      to_char(date, 'YYYY-MM-DD') AS "date",
-      meeting_type AS "meetingType",
-      presiding,
-      conducting,
-      announcements,
-      opening_hymn AS "openingHymn",
-      opening_prayer AS "openingPrayer",
-      ward_business AS "wardBusiness",
-      stake_business AS "stakeBusiness",
-      sacrament_hymn AS "sacramentHymn",
-      speakers,
-      closing_hymn AS "closingHymn",
-      closing_prayer AS "closingPrayer"
+  const result = await sql<MeetingRow>`
+    SELECT *
     FROM meetings
     WHERE id = ${id}
+    LIMIT 1
   `;
 
-  return (rows[0] as unknown as SacramentMeeting) ?? null;
+  if (result.rows.length === 0) {
+    return null;
+  }
+
+  return mapMeeting(result.rows[0]);
 }
 
-export async function getMeetingByDate(
-  date: string,
-): Promise<SacramentMeeting | null> {
-  const rows = await sql`
-    SELECT
-      id,
-      to_char(date, 'YYYY-MM-DD') AS "date",
-      meeting_type AS "meetingType",
+export async function createMeeting(
+  meeting: Omit<SacramentMeeting, "id">,
+): Promise<SacramentMeeting> {
+  const result = await sql<MeetingRow>`
+    INSERT INTO meetings (
+      date,
+      meeting_type,
       presiding,
       conducting,
       announcements,
-      opening_hymn AS "openingHymn",
-      opening_prayer AS "openingPrayer",
-      ward_business AS "wardBusiness",
-      stake_business AS "stakeBusiness",
-      sacrament_hymn AS "sacramentHymn",
+      opening_hymn,
+      opening_prayer,
+      ward_business,
+      stake_business,
+      sacrament_hymn,
       speakers,
-      closing_hymn AS "closingHymn",
-      closing_prayer AS "closingPrayer"
-    FROM meetings
-    WHERE date = ${date}
+      closing_hymn,
+      closing_prayer
+    )
+    VALUES (
+      ${meeting.date},
+      ${meeting.meetingType},
+      ${meeting.presiding},
+      ${meeting.conducting},
+      ${toPostgresTextArray(meeting.announcements ?? [])},
+      ${JSON.stringify(meeting.openingHymn)},
+      ${meeting.openingPrayer},
+      ${JSON.stringify(meeting.wardBusiness ?? [])},
+      ${meeting.stakeBusiness ?? false},
+      ${JSON.stringify(meeting.sacramentHymn)},
+      ${JSON.stringify(meeting.speakers ?? [])},
+      ${JSON.stringify(meeting.closingHymn)},
+      ${meeting.closingPrayer}
+    )
+    RETURNING *
   `;
 
-  return (rows[0] as unknown as SacramentMeeting) ?? null;
-}
-
-// Mutation stubs — will be implemented in Week 04.
-export async function addMeeting(
-  _data: Omit<SacramentMeeting, "id">,
-): Promise<SacramentMeeting> {
-  throw new Error("addMeeting: database implementation coming in Week 04");
+  return mapMeeting(result.rows[0]);
 }
 
 export async function updateMeeting(
-  _id: number,
-  _updates: Partial<SacramentMeeting>,
+  id: number,
+  meeting: Omit<SacramentMeeting, "id">,
 ): Promise<SacramentMeeting | null> {
-  throw new Error("updateMeeting: database implementation coming in Week 04");
+  const result = await sql<MeetingRow>`
+    UPDATE meetings
+    SET
+      date = ${meeting.date},
+      meeting_type = ${meeting.meetingType},
+      presiding = ${meeting.presiding},
+      conducting = ${meeting.conducting},
+      announcements = ${toPostgresTextArray(meeting.announcements ?? [])},
+      opening_hymn = ${JSON.stringify(meeting.openingHymn)},
+      opening_prayer = ${meeting.openingPrayer},
+      ward_business = ${JSON.stringify(meeting.wardBusiness ?? [])},
+      stake_business = ${meeting.stakeBusiness ?? false},
+      sacrament_hymn = ${JSON.stringify(meeting.sacramentHymn)},
+      speakers = ${JSON.stringify(meeting.speakers ?? [])},
+      closing_hymn = ${JSON.stringify(meeting.closingHymn)},
+      closing_prayer = ${meeting.closingPrayer}
+    WHERE id = ${id}
+    RETURNING *
+  `;
+
+  if (result.rows.length === 0) {
+    return null;
+  }
+
+  return mapMeeting(result.rows[0]);
 }
 
-export async function deleteMeeting(_id: number): Promise<boolean> {
-  throw new Error("deleteMeeting: database implementation coming in Week 04");
+export async function deleteMeeting(id: number): Promise<void> {
+  await sql`
+    DELETE FROM meetings
+    WHERE id = ${id}
+  `;
 }
