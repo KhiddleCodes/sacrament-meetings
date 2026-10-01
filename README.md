@@ -20,6 +20,21 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Bishopric Authentication
+
+The `/meetings` area requires the bishopric credentials. Copy `.env.example` to `.env.local`, then set these server-only variables:
+
+- `AUTH_SECRET`: generate with `npx auth secret`.
+- `BISHOPRIC_EMAIL`: the sign-in email.
+- `BISHOPRIC_PASSWORD_HASH`: a bcrypt hash of the password. Generate one with `node -e "require('bcryptjs').hash('choose-a-strong-password', 12).then(console.log)"`, then paste the output here. Use your own password in place of the example.
+
+Never commit `.env.local`. Add the same three variables to the Vercel project's environment settings before deploying. The `/meetings` pages redirect signed-out visitors to `/login`, and meeting create, update, and delete actions verify the session on the server.
+
+## Metadata
+
+The root layout defines the default title, description, and Open Graph preview image. The meeting schedule and sign-in pages define their own titles and descriptions.
+Set `NEXT_PUBLIC_SITE_URL` to the canonical site origin when using a custom domain; Vercel's deployment URL and `http://localhost:3000` are used otherwise.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:

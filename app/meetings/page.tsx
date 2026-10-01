@@ -1,6 +1,19 @@
+import type { Metadata } from "next";
 import MeetingCard from "../../components/MeetingCard";
 import { getMeetings } from "../../lib/meetings-db";
 import type { SacramentMeeting } from "../../lib/types";
+
+export const metadata: Metadata = {
+  title: "Meeting Schedule",
+  description:
+    "Review the Ovom Ward sacrament meeting schedule and program details.",
+  openGraph: {
+    title: "Meeting Schedule | Sacrament Meeting Planner",
+    description:
+      "Review the Ovom Ward sacrament meeting schedule and program details.",
+    images: ["/sacrament-meeting.svg"],
+  },
+};
 
 export const dynamic = "force-dynamic";
 

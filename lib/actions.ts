@@ -1,5 +1,7 @@
 "use server";
 
+import { auth, signIn } from "../auth";
+import { AuthError } from "next-auth";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
@@ -10,6 +12,32 @@ import {
   updateMeeting as updateMeetingInDb,
 } from "./meetings-db";
 
+async function requireBishopricSession() {
+  const session = await auth();
+
+  if (!session?.user) {
+    redirect("/login");
+  }
+}
+
+export async function authenticate(
+  _prevState: string | undefined,
+  formData: FormData,
+): Promise<string | undefined> {
+  try {
+    await signIn("credentials", formData);
+  } catch (error) {
+    if (error instanceof AuthError) {
+      if (error.type === "CredentialsSignin") {
+        return "Invalid email or password.";
+      }
+
+      return "Unable to sign in right now.";
+    }
+
+    throw error;
+  }
+}
 
 const hymnSchema = z.object({
   number: z.coerce
@@ -164,6 +192,8 @@ export async function createMeeting(
   _prevState: ActionState,
   formData: FormData,
 ): Promise<ActionState> {
+  await requireBishopricSession();
+
   const rawValues = getFormValues(formData);
 
   const result = MeetingFormSchema.safeParse(rawValues);
@@ -193,6 +223,8 @@ export async function updateMeeting(
   _prevState: ActionState,
   formData: FormData,
 ): Promise<ActionState> {
+  await requireBishopricSession();
+
   const rawValues = getFormValues(formData);
 
   const result = MeetingFormSchema.safeParse(rawValues);
@@ -230,6 +262,8 @@ export async function deleteMeeting(
   prevState: ActionState,
   formData: FormData,
 ): Promise<ActionState> {
+  await requireBishopricSession();
+
   void prevState;
   void formData;
 

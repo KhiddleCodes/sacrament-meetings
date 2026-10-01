@@ -1,4 +1,5 @@
 import NavLinks from "../../components/NavLinks";
+import SignOutButton from "../../components/SignOutButton";
 
 export default function MeetingsLayout({
   children,
@@ -8,8 +9,9 @@ export default function MeetingsLayout({
   return (
     <div>
       <div className="border-b bg-white">
-        <div className="mx-auto max-w-6xl px-6 py-4">
+        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-6 py-4">
           <NavLinks />
+          <SignOutButton />
         </div>
       </div>
 
