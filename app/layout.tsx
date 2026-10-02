@@ -10,8 +10,30 @@ const geist = Geist({
 });
 
 export const metadata: Metadata = {
-  title: "Sacrament Meeting Planner",
+  title: {
+    default: "Sacrament Meeting Planner",
+    template: "%s | Sacrament Meeting Planner",
+  },
   description: "Plan, review, and print sacrament meeting programs.",
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL ??
+      (process.env.VERCEL_URL
+        ? `https://${process.env.VERCEL_URL}`
+        : "http://localhost:3000"),
+  ),
+  openGraph: {
+    type: "website",
+    title: "Sacrament Meeting Planner",
+    description: "Plan, review, and print sacrament meeting programs.",
+    images: [
+      {
+        url: "/sacrament-meeting.svg",
+        width: 800,
+        height: 500,
+        alt: "Sacrament meeting planning illustration",
+      },
+    ],
+  },
 };
 
 export default function RootLayout({
